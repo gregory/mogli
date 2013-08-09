@@ -13,6 +13,7 @@ module Mogli
     has_association :events, "Event"
     has_association :statuses, "Status"
     has_association :checkins, "Checkin"
+    has_association :tagged, "Tag"
 
     hash_populating_accessor :location, "Location"
 
