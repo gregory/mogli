@@ -11,7 +11,6 @@ module Mogli
     has_association :notes, "Note"
     has_association :posts, "Post"
     has_association :events, "Event"
-    has_association :links, "Link"
     has_association :statuses, "Status"
     has_association :checkins, "Checkin"
 
@@ -31,7 +30,7 @@ module Mogli
     def small_image_url
       sized_image_url("small")
     end
-    
+
     # 64.64 pixel image url
     def normal_image_url
       sized_image_url("normal")
@@ -41,7 +40,7 @@ module Mogli
     def large_image_url
       sized_image_url("large")
     end
-    
+
     def sized_image_url(size)
       "#{image_url}?type=#{size}"
     end

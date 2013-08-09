@@ -1,7 +1,7 @@
 require 'mogli/model/search'
 
 module Mogli
-  class Model  
+  class Model
     extend Mogli::Model::Search
 
     set_search_type :all
@@ -24,7 +24,6 @@ module Mogli
       end
     end
 
-
     def post_params
       post_params = {}
       self.class.creation_keys.each do |key|
@@ -34,7 +33,7 @@ module Mogli
         # hash entries get added...
         if post_params[key].nil? && self.respond_to?(key.to_sym) && !(val=self.send(key.to_sym)).nil?
            post_params[key] = if val.is_a?(Array)
-                                "[#{val.map { |v| v.respond_to?(:to_json) ? v.to_json : nil }.compact.join(',')}]"  
+                                "[#{val.map { |v| v.respond_to?(:to_json) ? v.to_json : nil }.compact.join(',')}]"
                              elsif val.respond_to?(:to_json)
                                val.to_json
                              else
@@ -61,6 +60,7 @@ module Mogli
       end
       @fql_mapping || {}
     end
+
     def method_missing(method, *args)
       method_as_s = method.to_s
       if method_as_s.to_s[-1].chr == "="
@@ -69,6 +69,7 @@ module Mogli
         super
       end
     end
+
     def warn_about_invalid_property(property)
       puts "Warning: property #{property} doesn't exist for class #{self.class.name}"
     end
@@ -83,8 +84,6 @@ module Mogli
         @_values[arg.to_s] = val
       end
     end
-    
-        
 
     def self.define_properties(*args)
       args.each do |arg|
@@ -154,15 +153,15 @@ module Mogli
       merge!(other) if other
       self
     end
-    
+
     def ==(other)
       other.is_a?(Model) and self.id == other.id
     end
-    
+
     def merge!(other)
       @_values.merge!(other.instance_variable_get("@_values"))
     end
-    
+
     def self.recognize?(data)
       true
     end
